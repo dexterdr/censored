@@ -9,6 +9,6 @@ class Censored
 {
     function __construct()
     {
-        echo 111;
+        # code
     }
 }
