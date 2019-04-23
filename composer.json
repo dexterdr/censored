@@ -1,0 +1,14 @@
+{
+    "name": "dexter/censored",
+    "description": "A simple library for searching and removing obscene vocabulary.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Dexter",
+            "email": "dexter.gm@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
