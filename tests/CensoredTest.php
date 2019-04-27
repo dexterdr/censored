@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests;
+
 use Censored\Censored;
 use PHPUnit\Framework\TestCase;
 
