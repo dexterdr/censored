@@ -1,5 +1,5 @@
 {
-    "name": "dexter/censored",
+    "name": "dexterdr/censored",
     "type": "library",
     "description": "A simple library for searching and removing obscene vocabulary.",
     "keywords": ["censorship", "vocabulary"],
