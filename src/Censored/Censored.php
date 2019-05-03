@@ -7,9 +7,60 @@ namespace Censored;
  */
 class Censored
 {
-    function __construct()
+    /**
+     * @var \Censored\Dictionary
+     */
+    private $dictionary;
+
+    /**
+     * @var bool
+     */
+    private $exactMatch;
+
+    public function __construct(array $languages = ['en'], $exactMatch = true)
     {
-        # code
+        $this->dictionary = new Dictionary($languages);
+        $this->exactMatch = $exactMatch;
+    }
+
+    /**
+     * Get array of currently used languages.
+     *
+     * @return array
+     */
+    public function getLanguages(): array
+    {
+        return $this->dictionary->getLanguages();
+    }
+
+    /**
+     * Set new list of languages.
+     *
+     * @param array $languages
+     */
+    public function setLanguages(array $languages): void
+    {
+        $this->dictionary->setLanguages($languages);
+    }
+
+    /**
+     * Get "exact match" option value.
+     *
+     * @return bool
+     */
+    public function isExactMatch(): bool
+    {
+        return $this->exactMatch;
+    }
+
+    /**
+     * Set "exact match" match option value.
+     *
+     * @param bool $exactMatch
+     */
+    public function setExactMatch(bool $exactMatch): void
+    {
+        $this->exactMatch = $exactMatch;
     }
 
     /**
@@ -20,18 +71,28 @@ class Censored
      */
     public function isAcceptable(string $text): bool
     {
-        return empty($text) ? true : false;
+        return ($this->getProhibitedWordsCount($text) == 0) ? true : false;
     }
 
     /**
-     * Censorship of the text.
+     * Censorship of the text (partially ignore $exactMatch flag).
      *
      * @param string $text
      * @return string
      */
     public function censor(string $text): string
     {
-        return $text;
+        $prohibited = Comparator::search($text, $this->dictionary->getWords(), $this->exactMatch);
+
+        if (empty($prohibited)) {
+            return $text;
+        }
+
+        usort($prohibited, function ($a, $b) {
+            return mb_strlen($b) - mb_strlen($a);
+        });
+
+        return str_replace($prohibited, '***', $text);
     }
 
     /**
@@ -42,6 +103,6 @@ class Censored
      */
     public function getProhibitedWordsCount(string $text): int
     {
-        return empty($text) ? 0 : -1;
+        return count(Comparator::search($text, $this->dictionary->getWords(), $this->exactMatch));
     }
 }
