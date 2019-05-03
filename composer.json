@@ -1,7 +1,9 @@
 {
     "name": "dexter/censored",
-    "description": "A simple library for searching and removing obscene vocabulary.",
     "type": "library",
+    "description": "A simple library for searching and removing obscene vocabulary.",
+    "keywords": ["censorship", "vocabulary"],
+    "homepage": "https://github.com/dexterdr/censored",
     "license": "MIT",
     "authors": [
         {
