@@ -28,7 +28,8 @@ class Comparator
             return [];
         }
 
-        return array_unique(array_filter(explode(' ', $withoutPunctuation)));
+        $result = preg_split('/[\s]+/', $withoutPunctuation);
+        return ($result === false) ? [] : array_unique(array_filter($result));
     }
 
     /**

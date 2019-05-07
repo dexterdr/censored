@@ -40,6 +40,15 @@ final class CensoredTest extends TestCase
     }
 
     /**
+     * Check text for vocabulary acceptability.
+     */
+    public function testIsAcceptableMultiline(): void
+    {
+        $this->censored->setExactMatch(true);
+        $this->assertFalse($this->censored->isAcceptable("test\r\nfuck"));
+    }
+
+    /**
      * Censorship of the text.
      */
     public function testCensor(): void
